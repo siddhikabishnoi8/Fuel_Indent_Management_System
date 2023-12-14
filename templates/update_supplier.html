@@ -1,0 +1,35 @@
+<!-- update_supplier.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Supplier</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2>Update Supplier</h2>
+    <form action="/update_supplier/{{ supplier.id }}" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ supplier.name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="proximity">Proximity:</label>
+            <input type="text" class="form-control" id="proximity" name="proximity" value="{{ supplier.proximity }}" required>
+        </div>
+        <div class="form-group">
+            <label for="reliability">Reliability:</label>
+            <input type="text" class="form-control" id="reliability" name="reliability" value="{{ supplier.reliability }}" required>
+        </div>
+        <div class="form-group">
+            <label for="pricing">Pricing:</label>
+            <input type="text" class="form-control" id="pricing" name="pricing" value="{{ supplier.pricing }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+</div>
+
+</body>
+</html>

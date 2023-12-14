@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Indents</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        .btn-outline-success {
+            margin-left: 5px;
+        }
+        .container-xl {
+            padding: 0px;
+        }
+        .mr-sm-2 {
+            width: 30%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-0 py-3">
+        <div class="container-xl">
+            <!-- Logo -->
+            <a class="navbar-brand" href="/">Fuel Indent</a>
+            <!-- Navbar toggle -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Collapse -->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <!-- Nav -->
+                <div class="navbar-nav mx-lg-auto">
+                    <a class="nav-item nav-link active" href="/">Home</a>
+                    <a class="nav-item nav-link" href="/new">Add New Indent</a>
+                    <a class="nav-item nav-link" href="/add_supplier">Manage Suppliers</a>
+                    {% if current_user.is_authenticated %}
+                    <a class="nav-item nav-link" href="/profile">Profile</a>
+                    {% endif %}
+                </div>
+                <!-- Right navigation -->
+                <div class="navbar-nav ms-lg-4">
+                    {% if current_user.is_authenticated %}
+                    <a class="nav-item nav-link" href="/logout">Logout</a>
+                    {% else %}
+                    <a class="nav-item nav-link" href="/login">Login</a>
+                    <a class="nav-item nav-link" href="/register">Register</a>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Add the search form here -->
+            <form class="form-inline d-flex align-items-center" action="/search" method="POST">
+                <input class="form-control mr-2" type="text" placeholder="Search by Nameplate" name="search_nameplate">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    
+    
+    
+
+    <!-- Main Content Area -->
+    <div class="container mt-5">
+        <h2>All Fuel Indents</h2><br>
+        <form class="form-inline d-flex" action="/search" method="POST">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search by Nameplate" name="search_nameplate">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <br><br>
+        
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nameplate</th>
+                    <th>Fuel Type</th>
+                    <th>Quantity</th>
+                    <th>Quality</th>
+                    <th>Source</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for indent in indents %}
+                <tr>
+                    <td>{{ indent.nameplate }}</td>
+                    <td>{{ indent.fuel_type }}</td>
+                    <td>{{ indent.quantity }}</td>
+                    <td>{{ indent.quality }}</td>
+                    <td>{{ indent.source }}</td>
+                    <td>{{ indent.price }}</td>
+                    <td>{{ indent.date.strftime('%Y-%m-%d') }}</td>
+                    <td>
+                        <a href="{{ url_for('update_indent', id=indent.id) }}" class="btn btn-sm btn-primary">Update</a>
+                        <form action="{{ url_for('delete_indent', id=indent.id) }}" method="post" style="display: inline;">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                        <a href="{{ url_for('print_slip', id=indent.id) }}" class="btn btn-sm btn-info">Print Slip</a>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br><br>
+        <h2>Project Information</h2><br>
+
+    <!-- Regulatory Compliance and Risk Management -->
+    <div class="card mb-3">
+        <div class="card-header"><b>Regulatory Compliance and Risk Management</b></div>
+        <div class="card-body">
+            <p>Our project strictly adheres to the local, state, and national regulations governing fuel management and environmental protection. We have established robust risk management strategies to ensure the safety, security, and sustainability of our operations. These measures include regular safety audits, emergency response plans, and ongoing staff training to ensure a culture of compliance and preparedness.</p>
+        </div>
+    </div>
+
+    <!-- Environmental Impact Assessment -->
+    <div class="card mb-3">
+        <div class="card-header"><b>Environmental Impact Assessment</b></div>
+        <div class="card-body">
+            <p>Environmental stewardship is a core value of our project. We have conducted thorough environmental impact assessments to understand and mitigate the environmental risks associated with fuel management. Our strategies include reducing emissions, managing waste responsibly, and working closely with local communities to protect the natural environment.</p>
+        </div>
+    </div>
+
+    <!-- Budget and Funding Management -->
+    <div class="card mb-3">
+        <div class="card-header"><b>Budget and Funding Management</b></div>
+        <div class="card-body">
+            <p>Efficient budget and funding management are crucial for the success and sustainability of our project. We maintain transparency in our financial operations and ensure that all expenditures are aligned with our project goals and stakeholder expectations. Our budgeting process is designed to optimize resource allocation, and we actively seek diverse funding sources to ensure financial stability.</p>
+        </div>
+    </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

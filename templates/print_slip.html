@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fuel Indent Slip</title>
+    <style type="text/css">
+        body {
+            font-size: 12pt;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #000;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fuel Indent Slip</h2>
+        <p><strong>Nameplate:</strong> {{ indent.nameplate }}</p>
+        <p><strong>Fuel Type:</strong> {{ indent.fuel_type }}</p>
+        <p><strong>Quantity:</strong> {{ indent.quantity }}</p>
+        <p><strong>Quality:</strong> {{ indent.quality }}</p>
+        <p><strong>Supplier:</strong> {{ supplier.name }}</p>
+        <p><strong>Price:</strong> ${{ indent.price }}</p>
+        <p><strong>Date:</strong> {{ indent.date.strftime('%Y-%m-%d') }}</p>
+    </div>
+</body>
+</html>
