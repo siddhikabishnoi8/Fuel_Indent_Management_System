@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Fuel Indent</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/">Fuel Indent</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/new">Add New Indent</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/add_supplier">Manage Suppliers</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    
+
+    <div class="container mt-5">
+    <h2 class="text-center">Update Fuel Indent</h2>
+
+    <form action="{{ url_for('update_indent', id=indent.id) }}" method="post" class="mt-4">
+        
+        <div class="form-group">
+            <label for="nameplate">Nameplate:</label>
+            <input type="text" class="form-control" id="nameplate" name="nameplate" value="{{ indent.nameplate }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="fuel_type">Fuel Type:</label>
+            <input type="text" class="form-control" id="fuel_type" name="fuel_type" value="{{ indent.fuel_type }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" step="0.01" class="form-control" id="quantity" name="quantity" value="{{ indent.quantity }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="quality">Quality:</label>
+            <input type="text" class="form-control" id="quality" name="quality" value="{{ indent.quality }}">
+        </div>
+
+        <div class="form-group">
+            <label for="supplier">Supplier:</label>
+            <select class="form-control" id="supplier" name="supplier_id">
+                {% for supplier in suppliers %}
+                    <option value="{{ supplier.id }}" {% if supplier.id == indent.supplier_id %}selected{% endif %}>{{ supplier.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ indent.price }}">
+        </div>
+
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" class="form-control" id="date" name="date" value="{{ indent.date.strftime('%Y-%m-%d') }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Indent</button>
+    </form>
+</div>
+
+</body>
+</html>

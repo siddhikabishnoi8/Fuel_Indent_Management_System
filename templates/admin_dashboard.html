@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/admin">Admin Dashboard</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/users">Manage Users</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/suppliers">Manage Suppliers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/indents">Manage Indents</a>
+            </li>
+          </ul>
+        </div>
+        <a class="nav-item nav-link" href="/logout">Logout</a>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" href="/logout">Logout</a>
+        </div>          
+</nav>
+    <div class="container mt-5">
+        <h2>Admin Dashboard</h2>
+
+        <!-- Users Table -->
+        <h3>Users</h3>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Full Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.fullname }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Suppliers Table -->
+        <h3>Suppliers</h3>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for supplier in suppliers %}
+                <tr>
+                    <td>{{ supplier.name }}</td>
+                    <td>{{ supplier.contact }}</td>
+                    <td>{{ supplier.address }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Indents Table -->
+        <h3>Indents</h3>
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nameplate</th>
+                    <th>Fuel Type</th>
+                    <th>Quantity</th>
+                    <th>Quality</th>
+                    <th>Source</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for indent in indents %}
+                <tr>
+                    <td>{{ indent.nameplate }}</td>
+                    <td>{{ indent.fuel_type }}</td>
+                    <td>{{ indent.quantity }}</td>
+                    <td>{{ indent.quality }}</td>
+                    <td>{{ indent.source }}</td>
+                    <td>{{ indent.price }}</td>
+                    <td>{{ indent.date.strftime('%Y-%m-%d') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
